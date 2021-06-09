@@ -275,6 +275,53 @@ namespace Bloggy.Contollers
 
         [HttpGet]
         [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var existingBlogPost = _bloggyRepository.GetBlogPostById(id);
+            if (existingBlogPost != null)
+            {
+                EditBlogPostViewModel model = new EditBlogPostViewModel()
+                {
+                    Id = existingBlogPost.Id,
+                    Title = existingBlogPost.Title,
+                    Content = existingBlogPost.Content,
+                    ImageUrl = existingBlogPost.ImageUrl,
+                    CategoryId = existingBlogPost.CategoryId
+                };
+
+                //Load all categories and create a list of CategoryViewModel
+                var categoryList = _bloggyRepository.GetAllCategories().Select(c => new CategoryViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList();
+
+                //Attach to view model - view will pre-select according to the value in CategoryId
+                model.CategoryList = categoryList;
+
+                return View(model);
+            }
+            else
+                return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var modelToDelete = _bloggyRepository.GetBlogPostById(id);
+            if (modelToDelete == null)
+            {
+                return NotFound();
+            }
+            _bloggyRepository.DeleteBlogPost(modelToDelete);
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             try

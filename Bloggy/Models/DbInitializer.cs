@@ -92,22 +92,18 @@ namespace Bloggy.Models
                 (
                     new Status()
                     {
-                        Id = 1,
                         Name = "Open"
                     },
                     new Status()
                     {
-                        Id = 2,
                         Name = "Closed"
                     },
                     new Status()
                     {
-                        Id = 3,
                         Name = "Being investigated"
                     },
                     new Status()
                     {
-                        Id = 4,
                         Name = "No action required"
                     }
                 );

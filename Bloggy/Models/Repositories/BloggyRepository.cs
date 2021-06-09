@@ -69,6 +69,21 @@ namespace Bloggy.Models.Repositories
             }
         }
 
+        public void DeleteBlogPost(BlogPost blogPost)
+        {
+            try
+            {
+                _appDbContext.BlogPosts.Remove(blogPost);
+                _appDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+
         public void UpdateBlogPost(BlogPost blogPost)
         {
             try

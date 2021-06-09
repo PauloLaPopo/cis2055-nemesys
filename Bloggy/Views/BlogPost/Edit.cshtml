@@ -51,6 +51,7 @@
         <div class="col-md-5">
             <input type="submit" class="btn btn-primary" value="Update Blog Post" />
             <a asp-controller="BlogPost" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Back to Post</a>
+            <a asp-controller="BlogPost" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Delete</a>
         </div>
     </div>
 </form>

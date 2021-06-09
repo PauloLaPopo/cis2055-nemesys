@@ -10,6 +10,9 @@ namespace Bloggy.Models.Interfaces
         IEnumerable<BlogPost> GetAllBlogPosts();
         BlogPost GetBlogPostById(int blogPostId);
         void CreateBlogPost(BlogPost newBlogPost);
+
+        void DeleteBlogPost(BlogPost blogPost);
+
         void UpdateBlogPost(BlogPost updatedBlogPost);
 
         IEnumerable<Category> GetAllCategories();

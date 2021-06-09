@@ -146,6 +146,13 @@ namespace Bloggy.Models.Repositories
             _posts.Add(blogPost);
         }
 
+        public void DeleteBlogPost(BlogPost blogPost)
+        {
+            blogPost.Id = _posts.Count - 1;
+            _posts.Remove(blogPost);
+        }
+
+
         public void UpdateBlogPost(BlogPost blogPost)
         {
             var existingBlogPost = _posts.FirstOrDefault(p => p.Id == blogPost.Id);
