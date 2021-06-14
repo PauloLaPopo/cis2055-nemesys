@@ -34,8 +34,6 @@ namespace Bloggy.ViewModels
         //Property used to bind user selection
         [Required(ErrorMessage = "Category is required")]
         public int CategoryId { get; set; }
-
-        [Required(ErrorMessage = "Status is required")]
         public string Status { get;set; }
 
         //Property used solely to populate drop down

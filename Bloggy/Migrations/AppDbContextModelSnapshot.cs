@@ -115,7 +115,7 @@ namespace Bloggy.Migrations
                     b.Property<int>("ReadCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -153,7 +153,6 @@ namespace Bloggy.Migrations
 
                     b.ToTable("Categories");
                 });
-
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
