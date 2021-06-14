@@ -86,30 +86,6 @@ namespace Bloggy.Models
                 context.SaveChanges();
             }
 
-            if (!context.Statues.Any())
-            {
-                context.AddRange
-                (
-                    new Status()
-                    {
-                        Name = "Open"
-                    },
-                    new Status()
-                    {
-                        Name = "Closed"
-                    },
-                    new Status()
-                    {
-                        Name = "Being investigated"
-                    },
-                    new Status()
-                    {
-                        Name = "No action required"
-                    }
-                );
-                context.SaveChanges();
-            }
-
             if (!context.BlogPosts.Any())
             {
                 //Grabbing first one
@@ -127,7 +103,7 @@ namespace Bloggy.Models
                         ImageUrl = "/images/seed1.jpg",
                         UpVotes = 0,
                         CategoryId = 1,
-                        StatusId = 1,
+                        Status = "Open",
                         UserId = user.Id,
                         Location = "Toilet",
 
@@ -143,7 +119,7 @@ namespace Bloggy.Models
                         ImageUrl = "/images/seed2.jpg",
                         CategoryId = 2,
                         UpVotes = 0,
-                        StatusId = 1,
+                        Status = "Open",
                         UserId = user.Id,
                         Location = "Laboratory"
 
@@ -158,7 +134,7 @@ namespace Bloggy.Models
                         ImageUrl = "/images/seed3.jpg",
                         CategoryId = 2,
                         UpVotes = 0,
-                        StatusId = 1,
+                        Status = "Open",
                         UserId = user.Id,
                         Location = "Room 122"
 

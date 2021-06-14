@@ -33,7 +33,6 @@ namespace Bloggy.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId2 = table.Column<int>(type: "int", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -52,10 +51,6 @@ namespace Bloggy.Migrations
                 table: "BlogPosts",
                 column: "AuthorId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_BlogPosts_AuthorId2",
-                table: "BlogPosts",
-                column: "AuthorId2");
 
         }
 

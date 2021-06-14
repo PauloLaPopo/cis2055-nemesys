@@ -31,9 +31,7 @@ namespace Bloggy.Models
         //public int UpVotes { get; set; }
 
         //Foreign Key - navigation property name + key property name
-        public int StatusId { get; set; }
-        //Reference navigation property
-        public Status Status { get; set; }
+        public string Status { get;set; }
     }
 
 }

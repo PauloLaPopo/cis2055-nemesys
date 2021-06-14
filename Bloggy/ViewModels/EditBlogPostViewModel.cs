@@ -36,10 +36,9 @@ namespace Bloggy.ViewModels
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Status is required")]
-        public int StatusId { get; set; }
+        public string Status { get;set; }
 
         //Property used solely to populate drop down
         public List<CategoryViewModel> CategoryList { get; set; }
-        public List<StatusViewModel> StatusList { get; set; }
     }
 }

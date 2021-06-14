@@ -51,6 +51,7 @@ namespace Bloggy.Contollers
                         ImageUrl = b.ImageUrl,
                         ReadCount = b.ReadCount,
                         UpVotes = b.UpVotes,
+                        Status = b.Status,
                         Title = b.Title,
                         Location = b.Location,
 
@@ -58,11 +59,6 @@ namespace Bloggy.Contollers
                         {
                             Id = b.Category.Id,
                             Name = b.Category.Name
-                        },
-                        Status = new StatusViewModel()
-                        {
-                            Id = b.Status.Id,
-                            Name = b.Status.Name
                         },
                         Author = new AuthorViewModel()
                         {
@@ -98,6 +94,7 @@ namespace Bloggy.Contollers
                         ImageUrl = post.ImageUrl,
                         ReadCount = post.ReadCount,
                         UpVotes = post.UpVotes,
+                        Status = post.Status,
                         Title = post.Title,
                         Content = post.Content,
                         Location = post.Location,
@@ -105,11 +102,6 @@ namespace Bloggy.Contollers
                         {
                             Id = post.Category.Id,
                             Name = post.Category.Name
-                        },
-                        Status = new StatusViewModel()
-                        {
-                            Id = post.Status.Id,
-                            Name = post.Status.Name
                         },
                         Author = new AuthorViewModel()
                         {
@@ -142,16 +134,10 @@ namespace Bloggy.Contollers
                     Name = c.Name
                 }).ToList();
 
-                var statusList = _bloggyRepository.GetAllStatus().Select(c => new StatusViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
 
                 //Pass the list into an EditBlogPostViewModel, which is used by the View (all other properties may be left blank, unless you want to add other default values
                 var model = new EditBlogPostViewModel()
                 {
-                    StatusList = statusList,
                     CategoryList = categoryList
                 };
 
@@ -167,7 +153,7 @@ namespace Bloggy.Contollers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create([Bind("Title, Content, ImageToUpload, CategoryId, Location, StatusId")] EditBlogPostViewModel newBlogPost)
+        public IActionResult Create([Bind("Title, Content, ImageToUpload, CategoryId, Location, Status")] EditBlogPostViewModel newBlogPost)
         {
             try
             {
@@ -198,7 +184,7 @@ namespace Bloggy.Contollers
                         ReadCount = 0,
                         UpVotes = 0,
                         CategoryId = newBlogPost.CategoryId,
-                        StatusId = newBlogPost.StatusId,
+                        Status = "Open",
                         UserId = _userManager.GetUserId(User)
                     };
 
@@ -214,15 +200,9 @@ namespace Bloggy.Contollers
                         Name = c.Name
                     }).ToList();
 
-                    var statusList = _bloggyRepository.GetAllStatus().Select(c => new StatusViewModel()
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    }).ToList();
 
                     //Re-attach to view model before sending back to the View (this is necessary so that the View can repopulate the drop down and pre-select according to the CategoryId
                     newBlogPost.CategoryList = categoryList;
-                    newBlogPost.StatusList = statusList;
 
                     return View(newBlogPost);
                 }
@@ -253,15 +233,9 @@ namespace Bloggy.Contollers
                         Name = c.Name
                     }).ToList();
 
-                    var statusList = _bloggyRepository.GetAllStatus().Select(c => new StatusViewModel()
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    }).ToList();
 
                     //Re-attach to view model before sending back to the View (this is necessary so that the View can repopulate the drop down and pre-select according to the CategoryId
                     newBlogPost.CategoryList = categoryList;
-                    newBlogPost.StatusList = statusList;
                 }
 
                 return View(newBlogPost);
@@ -286,7 +260,8 @@ namespace Bloggy.Contollers
                     Title = existingBlogPost.Title,
                     Content = existingBlogPost.Content,
                     ImageUrl = existingBlogPost.ImageUrl,
-                    CategoryId = existingBlogPost.CategoryId
+                    CategoryId = existingBlogPost.CategoryId,
+                    Status = existingBlogPost.Status
                 };
 
                 //Load all categories and create a list of CategoryViewModel
@@ -341,7 +316,7 @@ namespace Bloggy.Contollers
                             Content = existingBlogPost.Content,
                             ImageUrl = existingBlogPost.ImageUrl,
                             CategoryId = existingBlogPost.CategoryId,
-                            StatusId = existingBlogPost.StatusId,
+                            Status = existingBlogPost.Status,
                             Location = existingBlogPost.Location
                         };
 
@@ -352,15 +327,8 @@ namespace Bloggy.Contollers
                             Name = c.Name
                         }).ToList();
 
-                        var statusList = _bloggyRepository.GetAllStatus().Select(c => new StatusViewModel()
-                        {
-                            Id = c.Id,
-                            Name = c.Name
-                        }).ToList();
-
                         //Attach to view model - view will pre-select according to the value in CategoryId
                         model.CategoryList = categoryList;
-                        model.StatusList = statusList;
 
                         return View(model);
                     }
@@ -380,7 +348,7 @@ namespace Bloggy.Contollers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id, Title, Content, ImageToUpload, CategoryId, StatusId Location")] EditBlogPostViewModel updatedBlogPost)
+        public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id, Title, Content, ImageToUpload, CategoryId, Location")] EditBlogPostViewModel updatedBlogPost)
         {
             try {
                 var modelToUpdate = _bloggyRepository.GetBlogPostById(id);
@@ -422,7 +390,7 @@ namespace Bloggy.Contollers
                         modelToUpdate.Location = updatedBlogPost.Location;
                         modelToUpdate.UpdatedDate = DateTime.Now;
                         modelToUpdate.CategoryId = updatedBlogPost.CategoryId;
-                        modelToUpdate.StatusId = updatedBlogPost.StatusId;
+                        modelToUpdate.Status = updatedBlogPost.Status;
                         modelToUpdate.UserId = _userManager.GetUserId(User);
 
                         _bloggyRepository.UpdateBlogPost(modelToUpdate);
@@ -441,15 +409,9 @@ namespace Bloggy.Contollers
                         Name = c.Name
                     }).ToList();
 
-                    var statusList = _bloggyRepository.GetAllStatus().Select(c => new StatusViewModel()
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    }).ToList();
 
                     //Re-attach to view model before sending back to the View (this is necessary so that the View can repopulate the drop down and pre-select according to the CategoryId
                     updatedBlogPost.CategoryList = categoryList;
-                    updatedBlogPost.StatusList = statusList;
 
                     return View(updatedBlogPost);
                 }

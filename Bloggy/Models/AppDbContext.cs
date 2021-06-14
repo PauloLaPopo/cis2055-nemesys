@@ -14,7 +14,6 @@ namespace Bloggy.Models
             //This will pass any options passed in the constructor to the base class DbContext
         }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Status> Statues { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
     }
 

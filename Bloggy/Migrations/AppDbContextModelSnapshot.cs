@@ -115,8 +115,8 @@ namespace Bloggy.Migrations
                     b.Property<int>("ReadCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
+                    b.Property<int>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -133,8 +133,6 @@ namespace Bloggy.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("StatusId");
 
                     b.HasIndex("UserId");
 
@@ -156,20 +154,6 @@ namespace Bloggy.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Bloggy.Models.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statues");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -314,19 +298,11 @@ namespace Bloggy.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bloggy.Models.Status", "Status")
-                        .WithMany("BlogPosts")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Bloggy.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Status");
 
                     b.Navigation("User");
                 });
@@ -383,11 +359,6 @@ namespace Bloggy.Migrations
                 });
 
             modelBuilder.Entity("Bloggy.Models.Category", b =>
-                {
-                    b.Navigation("BlogPosts");
-                });
-
-            modelBuilder.Entity("Bloggy.Models.Status", b =>
                 {
                     b.Navigation("BlogPosts");
                 });

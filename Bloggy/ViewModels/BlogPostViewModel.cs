@@ -18,7 +18,7 @@ namespace Bloggy.ViewModels
         public int UpVotes { get; set; }
         public CategoryViewModel Category { get; set; }
         public AuthorViewModel Author { get; set; }
-        public StatusViewModel Status { get; set; }
+        public string Status { get;set; }
     }
 
 }

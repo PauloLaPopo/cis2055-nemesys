@@ -17,8 +17,6 @@ namespace Bloggy.Models.Interfaces
 
         IEnumerable<Category> GetAllCategories();
         Category GetCategoryById(int categoryId);
-        IEnumerable<Status> GetAllStatus();
-        Status GetStatusById(int statusId);
 
     }
 

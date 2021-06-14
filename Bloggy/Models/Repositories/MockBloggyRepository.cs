@@ -11,7 +11,6 @@ namespace Bloggy.Models.Repositories
     {
         private List<BlogPost> _posts;
         private List<Category> _categories;
-        private List<Status> _status;
 
         public MockBloggyRepository()
         {
@@ -23,10 +22,6 @@ namespace Bloggy.Models.Repositories
             if (_posts == null)
             {
                 InitializeBlogPosts();
-            }
-            if (_status == null)
-            {
-                InitializeStatus();
             }
 
         }
@@ -46,32 +41,7 @@ namespace Bloggy.Models.Repositories
                 }
             };
         }
-        private void InitializeStatus()
-        {
-            _status = new List<Status>()
-            {
-                new Status()
-                {
-                    Id = 1,
-                    Name = "Open"
-                },
-                new Status()
-                {
-                    Id = 2,
-                    Name = "Closed"
-                },
-                new Status()
-                {
-                    Id = 3,
-                    Name = "Being investigated"
-                },
-                new Status()
-                {
-                    Id = 4,
-                    Name = "No action required"
-                }
-            };
-        }
+        
 
         private void InitializeBlogPosts()
         {
@@ -85,7 +55,7 @@ namespace Bloggy.Models.Repositories
                     CreatedDate = DateTime.UtcNow,
                     ImageUrl = "/images/seed1.jpg",
                     CategoryId = 1,
-                    StatusId = 1,
+                    Status = "Open",
                     UpVotes = 0,
                     Location = "Toilet",
                     
@@ -98,7 +68,7 @@ namespace Bloggy.Models.Repositories
                     CreatedDate = DateTime.UtcNow.AddDays(-1),
                     ImageUrl = "/images/seed2.jpg",
                     CategoryId = 2,
-                    StatusId = 1,
+                    Status = "Open",
                     UpVotes = 0,
                     Location = "Laboratory"
                 },
@@ -110,7 +80,7 @@ namespace Bloggy.Models.Repositories
                     CreatedDate = DateTime.UtcNow.AddDays(-2),
                     ImageUrl = "/images/seed3.jpg",
                     CategoryId = 2,
-                    StatusId = 1,
+                    Status = "Open",
                     UpVotes = 0,
                     Location = "Room 122"
                 }
@@ -123,7 +93,6 @@ namespace Bloggy.Models.Repositories
             foreach (var post in _posts)
             {
                 post.Category = _categories.FirstOrDefault(c => c.Id == post.CategoryId);
-                post.Status = _status.FirstOrDefault(c => c.Id == post.StatusId);
                 result.Add(post);
             }
             return result;
@@ -133,9 +102,7 @@ namespace Bloggy.Models.Repositories
         {
             var post = _posts.FirstOrDefault(p => p.Id == blogPostId); //if not found, it returns null
             var category = _categories.FirstOrDefault(c => c.Id == post.CategoryId);
-            var status = _status.FirstOrDefault(c => c.Id == post.StatusId);
 
-            post.Status = status;
             post.Category = category;
             return post;
         }
@@ -164,7 +131,7 @@ namespace Bloggy.Models.Repositories
                 existingBlogPost.Content = blogPost.Content;
                 existingBlogPost.UpdatedDate = blogPost.UpdatedDate;
                 existingBlogPost.CategoryId = blogPost.CategoryId;
-                existingBlogPost.StatusId = blogPost.StatusId;
+                existingBlogPost.Status = blogPost.Status;
                 existingBlogPost.UserId = blogPost.UserId;
                 existingBlogPost.Location = blogPost.Location;
             }
@@ -181,14 +148,5 @@ namespace Bloggy.Models.Repositories
             return _categories.FirstOrDefault(c => c.Id == categoryId); //if not found, it returns null
         }
 
-        public IEnumerable<Status> GetAllStatus()
-        {
-            return _status;
-        }
-
-        public Status GetStatusById(int statusId)
-        {
-            return _status.FirstOrDefault(c => c.Id == statusId); //if not found, it returns null
-        }
     }
 }
