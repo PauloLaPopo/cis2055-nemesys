@@ -142,6 +142,36 @@ namespace Bloggy.Models
                 );
                 context.SaveChanges();
             }
+
+            if (!context.Investigations.Any())
+            {
+                //Grabbing first one
+                var user = userManager.GetUsersInRoleAsync("Administrator").Result.FirstOrDefault();
+
+                context.AddRange
+                (
+                    new Investigation()
+                    {
+                        Title = "Investigation 1",
+                        Content = "Today's AGA is characterized by a series of discussions and debates around ...",
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow,
+                        ImageUrl = "/images/seed1.jpg",
+                        UserId = user.Id,
+                    },
+                    new Investigation()
+                    {
+                        Title = "Investigation 2",
+                        Content = "Today's traffic can't be described using words. Only an image can do that ...",
+                        CreatedDate = DateTime.UtcNow.AddDays(-1),
+                        UpdatedDate = DateTime.UtcNow.AddDays(-1),
+                        ImageUrl = "/images/seed2.jpg",
+                        UserId = user.Id,
+
+                    }
+                );
+                context.SaveChanges();
+            }
         }
     }
 

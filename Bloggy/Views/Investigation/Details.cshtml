@@ -2,7 +2,7 @@
 @inject UserManager<Bloggy.Models.ApplicationUser> UserManager
 
 
-@model Bloggy.ViewModels.BlogPostViewModel
+@model Bloggy.ViewModels.InvestigationViewModel
 
 <h1>@Model.Title</h1>
 <div class="card" style="width: 90%;padding:20px; margin:20px;">
@@ -10,23 +10,15 @@
     <div class="card-body">
         <h3 class="card-title">@Model.Title</h3>
         <p class="card-text">@Model.Content</p>
-        <p class="small">In @Model.Category.Name</p>
         <p class="small">@Model.CreatedDate.ToShortDateString()</p>
         <p class="small">By @Model.Author.Name</p>
     </div>
 </div>
 
-<a asp-controller="BlogPost" asp-action="Index" class="btn btn-primary">Back to list</a>
+<a asp-controller="Investigation" asp-action="Index" class="btn btn-primary">Back to list</a>
 
-@if (User.Identity.IsAuthenticated)
-{
-    if (UserManager.GetUserAsync(User).Result.Id == Model.Author.Id)
-    {
-        <a asp-controller="BlogPost" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
-    }
-}
 
 @if (User.IsInRole("Administrator"))
 {
-    <a asp-controller="Investigation" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-outline-primary">Create an investigation</a>
+    <a asp-controller="Investigation" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
 }

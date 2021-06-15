@@ -73,6 +73,7 @@ namespace Bloggy
 
             //Let's keep it simple for now
             services.AddTransient<IBloggyRepository, BloggyRepository>();
+            services.AddTransient<IInvestigationRepository, InvestigationRepository>();
 
             //Switch to mock (using singleton)
             //services.AddSingleton<IBloggyRepository, MockBloggyRepository>();
