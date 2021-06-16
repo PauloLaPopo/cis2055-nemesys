@@ -14,7 +14,7 @@ namespace Bloggy.Models.Interfaces
         void DeleteBlogPost(BlogPost blogPost);
 
         void UpdateBlogPost(BlogPost updatedBlogPost);
-
+        void UpdateBlogPostReadCount(BlogPost updatedBlogPost);
         IEnumerable<Category> GetAllCategories();
         Category GetCategoryById(int categoryId);
 

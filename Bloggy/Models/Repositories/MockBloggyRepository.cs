@@ -136,6 +136,15 @@ namespace Bloggy.Models.Repositories
                 existingBlogPost.Location = blogPost.Location;
             }
         }
+        public void UpdateBlogPostReadCount(BlogPost blogPost)
+        {
+            var existingBlogPost = _posts.FirstOrDefault(p => p.Id == blogPost.Id);
+            if (existingBlogPost != null)
+            {
+                //No need to update CreatedDate (id of course won't be changed)
+                existingBlogPost.ReadCount = blogPost.ReadCount + 1;
+            }
+        }
 
 
         public IEnumerable<Category> GetAllCategories()

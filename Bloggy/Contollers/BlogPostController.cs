@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
 using System.Linq;
 using System.Threading.Tasks;
 using Bloggy.Models;
@@ -30,7 +31,6 @@ namespace Bloggy.Contollers
             _userManager = userManager;
             _logger = logger;
         }
-
 
         public IActionResult Index()
         {
@@ -92,9 +92,9 @@ namespace Bloggy.Contollers
                         CreatedDate = post.CreatedDate,
                         DiscoveryDate = post.DiscoveryDate,
                         ImageUrl = post.ImageUrl,
-                        ReadCount = post.ReadCount,
                         UpVotes = post.UpVotes,
                         Status = post.Status,
+                        ReadCount = post.ReadCount + 1,
                         Title = post.Title,
                         Content = post.Content,
                         Location = post.Location,
@@ -108,9 +108,16 @@ namespace Bloggy.Contollers
                             Id = post.UserId,
                             Name = (_userManager.FindByIdAsync(post.UserId).Result != null) ? _userManager.FindByIdAsync(post.UserId).Result.UserName : "Anonymous"
                         }
+                        
                     };
+                    /*ActualizationReadCount model1 = new ActualizationReadCount() 
+                    {
+                        ReadCount = model.ReadCount + 1
+                    };*/
+                    _bloggyRepository.UpdateBlogPostReadCount(post);
+                    
 
-                    return View(model);
+                return View(model);
                 }
             }
             catch (Exception ex)
@@ -120,6 +127,7 @@ namespace Bloggy.Contollers
             }
 
         }
+   
 
         [HttpGet]
         [Authorize]

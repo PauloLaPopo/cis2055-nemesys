@@ -110,6 +110,25 @@ namespace Bloggy.Models.Repositories
                 throw;
             }
         }
+        public void UpdateBlogPostReadCount(BlogPost blogPost)
+        {
+            try
+            {
+                var existingBlogPost = _appDbContext.BlogPosts.SingleOrDefault(bp => bp.Id == blogPost.Id);
+                if (existingBlogPost != null)
+                {
+                    existingBlogPost.ReadCount = blogPost.ReadCount + 1;
+
+                    _appDbContext.Entry(existingBlogPost).State = EntityState.Modified;
+                    _appDbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
 
         public IEnumerable<Category> GetAllCategories()
         {

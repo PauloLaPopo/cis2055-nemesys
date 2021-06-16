@@ -20,6 +20,7 @@
                 <p class="small">Date of the problem : @blogPost.DiscoveryDate.ToShortDateString() at @blogPost.DiscoveryDate.ToShortTimeString()</p>
                 <p class="small">Name of the reporter : @blogPost.Author.UserName</p>
                 <p class="small">Contact : @blogPost.Author.Name</p>
+                <p class="small">Number of Visitors : @blogPost.ReadCount</p>
                 <a asp-controller="BlogPost" asp-action="Details" asp-route-id="@blogPost.Id" class="btn btn-primary">Details</a>
             </div>
         </div>
