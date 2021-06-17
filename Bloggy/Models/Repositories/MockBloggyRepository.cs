@@ -138,21 +138,11 @@ namespace Bloggy.Models.Repositories
         }
         public void UpdateBlogPostReadCount(BlogPost blogPost)
         {
-            try
+            var existingBlogPost = _posts.FirstOrDefault(p => p.Id == blogPost.Id);
+            if (existingBlogPost != null)
             {
-                var existingBlogPost = _appDbContext.BlogPosts.SingleOrDefault(bp => bp.Id == blogPost.Id);
-                if (existingBlogPost != null)
-                {
-                    existingBlogPost.ReadCount = blogPost.ReadCount + 1;
-
-                    _appDbContext.Entry(existingBlogPost).State = EntityState.Modified;
-                    _appDbContext.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                throw;
+                //No need to update CreatedDate (id of course won't be changed)
+                existingBlogPost.ReadCount = blogPost.ReadCount + 1;
             }
         }
 
