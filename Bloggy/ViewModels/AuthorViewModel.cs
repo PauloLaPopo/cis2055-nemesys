@@ -10,5 +10,6 @@ namespace Bloggy.ViewModels
         public string Id { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }
+        public int NbBlogPost { get; set; }
     }
 }

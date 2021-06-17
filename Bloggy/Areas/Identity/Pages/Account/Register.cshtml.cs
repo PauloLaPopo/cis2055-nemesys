@@ -84,7 +84,7 @@ namespace Bloggy.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,
                     AuthorAlias = Input.AuthorAlias,
-                    Email = Input.Email
+                    Email = Input.Email,
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
