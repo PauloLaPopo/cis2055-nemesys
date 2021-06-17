@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bloggy.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Bloggy.Models;
 
 namespace Bloggy.ViewModels
 {
-    public class BlogPostListViewModel
+    public class BlogPostGenreViewModel
     {
-        public int TotalEntries { get; set; }
-        public IEnumerable<BlogPostViewModel> BlogPosts { get; set; }
-
-        public List<BlogPost> BlogPost { get; set; }
+        public List<BlogPost> BlogPosts { get; set; }
         public SelectList Categories { get; set; }
         public string BlogPostCategorie { get; set; }
+        public string SearchString { get; set; }
     }
-
 }

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bloggy.Contollers
 {
@@ -21,15 +22,18 @@ namespace Bloggy.Contollers
         private readonly IBloggyRepository _bloggyRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<BlogPostController> _logger;
+        private readonly AppDbContext _context;
 
         public BlogPostController(
             IBloggyRepository bloggyRepository, 
             UserManager<ApplicationUser> userManager,
-            ILogger<BlogPostController> logger)
+            ILogger<BlogPostController> logger,
+            AppDbContext context)
         {
             _bloggyRepository = bloggyRepository;
             _userManager = userManager;
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -66,6 +70,8 @@ namespace Bloggy.Contollers
                             Name = (_userManager.FindByIdAsync(b.UserId).Result != null) ? _userManager.FindByIdAsync(b.UserId).Result.UserName : "Anonymous",
                             UserName = (_userManager.FindByIdAsync(b.UserId).Result != null) ? _userManager.FindByIdAsync(b.UserId).Result.AuthorAlias : "Anonymous"
                         }
+
+
                     })
                 };
                 return View(model);
@@ -76,6 +82,35 @@ namespace Bloggy.Contollers
                 return View("Error");
             }
         }
+
+        /*public async Task<IActionResult> Index(string blogPostCategory, String searchString)
+        {
+
+            IQueryable<string> genreQuery = from m in _context.BlogPosts
+                                            orderby m.Category.Name
+                                            select m.Category.Name;
+
+            var blogpost = from m in _context.BlogPosts
+                         select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                blogpost = blogpost.Where(s => s.Title.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(blogPostCategory))
+            {
+                blogpost = blogpost.Where(x => x.Category.Name == blogPostCategory);
+            }
+
+            var movieGenreVM = new BlogPostListViewModel
+            {
+                Categories = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                BlogPost = await blogpost.ToListAsync()
+            };
+
+            return View(movieGenreVM);
+        }*/
 
         public IActionResult Details(int id)
         {
