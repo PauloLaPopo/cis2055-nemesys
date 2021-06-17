@@ -127,17 +127,17 @@ namespace Bloggy.Contollers
 
         }
 
-        public IActionResult StatusBeingInvest([FromRoute] int id, [Bind("Id, BlogPostId, Title, Content, ImageToUpload")] EditInvestigationViewModel updatedInvestigation)
+        public IActionResult StatusBeingInvest([FromRoute] int id)
         {
-            var actualInvestigation = _investigationRepository.GetInvestigationById(id);
-            int buffer = actualInvestigation.BlogPostId;
-            var blogpost = _bloggyRepository.GetBlogPostById(buffer);
-            blogpost.Status = "Being Investigated";
-            _bloggyRepository.UpdateBlogPost(blogpost);
+            var actualInvestigation = _investigationRepository.GetInvestigationById(id); // We get the investigation related with the post we want to update
+            int buffer = actualInvestigation.BlogPostId; // We put its BlogPostId in a buffer
+            var blogpost = _bloggyRepository.GetBlogPostById(buffer); // Then we get the post related with this investigation
+            blogpost.Status = "Being Investigated"; // And we modify its status field 
+            _bloggyRepository.UpdateBlogPost(blogpost); // Finally we update the modifications
             return RedirectToAction("Index");
 
         }
-        public IActionResult StatusNoAction([FromRoute] int id, [Bind("Id, BlogPostId, Title, Content, ImageToUpload")] EditInvestigationViewModel updatedInvestigation)
+        public IActionResult StatusNoAction([FromRoute] int id)
         {
             var actualInvestigation = _investigationRepository.GetInvestigationById(id);
             int buffer = actualInvestigation.BlogPostId;
@@ -147,7 +147,7 @@ namespace Bloggy.Contollers
             return RedirectToAction("Index");
         }
 
-        public IActionResult StatusClose([FromRoute] int id, [Bind("Id, BlogPostId, Title, Content, ImageToUpload")] EditInvestigationViewModel updatedInvestigation)
+        public IActionResult StatusClose([FromRoute] int id)
         {
             var actualInvestigation = _investigationRepository.GetInvestigationById(id);
             int buffer = actualInvestigation.BlogPostId;
@@ -286,7 +286,7 @@ namespace Bloggy.Contollers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var existingBlogPost = _bloggyRepository.GetBlogPostById(id);
             if (existingBlogPost != null)
@@ -320,7 +320,7 @@ namespace Bloggy.Contollers
         [HttpPost, ActionName("Delete")]
         [Authorize]
 
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             var modelToDelete = _bloggyRepository.GetBlogPostById(id);
             if (modelToDelete == null)

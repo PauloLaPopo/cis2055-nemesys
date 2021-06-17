@@ -128,36 +128,22 @@ namespace Bloggy.Contollers
             {
                 if (ModelState.IsValid)
                 {
-                    /*
-                    string fileName = "";
-                    if (newInvestigation.ImageToUpload != null)
-                    {
-                        //At this point you should check size, extension etc...
-                        //Then persist using a new name for consistency (e.g. new Guid)
-                        var extension = "." + newInvestigation.ImageToUpload.FileName.Split('.')[newInvestigation.ImageToUpload.FileName.Split('.').Length - 1];
-                        fileName = Guid.NewGuid().ToString() + extension;
-                        var path = Directory.GetCurrentDirectory() + "\\wwwroot\\images\\investigations\\" + fileName;
-                        using (var bits = new FileStream(path, FileMode.Create))
-                        {
-                            newInvestigation.ImageToUpload.CopyTo(bits);
-                        }
-                    }
-                    */
+                    // We want to get information from the post being investigated
                     var existingBlogPost = _bloggyRepository.GetBlogPostById(id);
 
                     Investigation investigation = new Investigation()
                     {
-                        BlogPostId = id,
-                        Title = existingBlogPost.Title,
+                        BlogPostId = id, // We link the blog post with the investigation using a filed BlogPostId
+                        Title = existingBlogPost.Title, // We decided that the title of the investigation will be the same as the blog post title
                         Content = newInvestigation.Content,
                         CreatedDate = DateTime.UtcNow,
-                        ImageUrl = existingBlogPost.ImageUrl,
+                        ImageUrl = existingBlogPost.ImageUrl, // Same for the Image
                         UserId = _userManager.GetUserId(User)
                     };
 
-                    _investigationRepository.CreateInvestigation(investigation);
-                    existingBlogPost.Status = "Being Investigated";
-                    _bloggyRepository.UpdateBlogPost(existingBlogPost);
+                    _investigationRepository.CreateInvestigation(investigation); // We call the method create an Investigation 
+                    existingBlogPost.Status = "Being Investigated"; // Then we set the blog post status to "Being investigated" because an investigation was just created
+                    _bloggyRepository.UpdateBlogPost(existingBlogPost); // We call the method update blogpost to update the BlogPost's status field
                     return RedirectToAction("Index");
                 }
                 else
@@ -209,11 +195,11 @@ namespace Bloggy.Contollers
             {
                 return NotFound();
             }
-            int ID = modelToDelete.BlogPostId;
-            var investigatedBlogPost = _bloggyRepository.GetBlogPostById(ID);
-            investigatedBlogPost.Status = "Open";
-            _bloggyRepository.UpdateBlogPost(investigatedBlogPost);
-            _investigationRepository.DeleteInvestigation(modelToDelete);
+            int ID = modelToDelete.BlogPostId; 
+            var investigatedBlogPost = _bloggyRepository.GetBlogPostById(ID); // We get the blog post linked with the investigation
+            investigatedBlogPost.Status = "Open"; // And we set its status to open because there is no more investigation open on it 
+            _bloggyRepository.UpdateBlogPost(investigatedBlogPost); // We update the modification
+            _investigationRepository.DeleteInvestigation(modelToDelete); // And we call the delete method to delete the investigation
             return RedirectToAction("Index");
         }
 
