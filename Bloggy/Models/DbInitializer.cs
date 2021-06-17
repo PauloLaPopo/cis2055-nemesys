@@ -95,7 +95,7 @@ namespace Bloggy.Models
                 (
                     new BlogPost()
                     {
-                        Title = "Connard",
+                        Title = "Post 3",
                         Content = "Today's AGA is characterized by a series of discussions and debates around ...",
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow,
@@ -126,7 +126,7 @@ namespace Bloggy.Models
                     },
                     new BlogPost()
                     {
-                        Title = "Pute",
+                        Title = "Post 1",
                         Content = "Clouds clouds all around us. I thought spring started already, but ...",
                         CreatedDate = DateTime.UtcNow.AddDays(-2),
                         UpdatedDate = DateTime.UtcNow.AddDays(-2),

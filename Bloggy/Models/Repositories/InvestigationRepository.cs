@@ -107,5 +107,10 @@ namespace Bloggy.Models.Repositories
                 throw;
             }
         }
+
+        public void CreateInvestigation(object investigation)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

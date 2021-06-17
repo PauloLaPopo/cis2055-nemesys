@@ -18,17 +18,20 @@ namespace Bloggy.Contollers
     public class BlogPostController : Controller
     {
         private readonly IBloggyRepository _bloggyRepository;
+        private readonly IInvestigationRepository _investigationRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<BlogPostController> _logger;
 
         public BlogPostController(
-            IBloggyRepository bloggyRepository, 
+            IBloggyRepository bloggyRepository,
+            IInvestigationRepository investigationRepository,
             UserManager<ApplicationUser> userManager,
             ILogger<BlogPostController> logger)
         {
             _bloggyRepository = bloggyRepository;
             _userManager = userManager;
             _logger = logger;
+            _investigationRepository = investigationRepository;
         }
 
 
@@ -118,6 +121,37 @@ namespace Bloggy.Contollers
                 _logger.LogError(ex, ex.Message, ex.Data);
                 return View("Error");
             }
+
+        }
+
+        public IActionResult StatusBeingInvest([FromRoute] int id, [Bind("Id, BlogPostId, Title, Content, ImageToUpload")] EditInvestigationViewModel updatedInvestigation)
+        {
+            var actualInvestigation = _investigationRepository.GetInvestigationById(id);
+            int buffer = actualInvestigation.BlogPostId;
+            var blogpost = _bloggyRepository.GetBlogPostById(buffer);
+            blogpost.Status = "Being Investigated";
+            _bloggyRepository.UpdateBlogPost(blogpost);
+            return RedirectToAction("Index");
+
+        }
+        public IActionResult StatusNoAction([FromRoute] int id, [Bind("Id, BlogPostId, Title, Content, ImageToUpload")] EditInvestigationViewModel updatedInvestigation)
+        {
+            var actualInvestigation = _investigationRepository.GetInvestigationById(id);
+            int buffer = actualInvestigation.BlogPostId;
+            var blogpost = _bloggyRepository.GetBlogPostById(buffer);
+            blogpost.Status = "No Action Required";
+            _bloggyRepository.UpdateBlogPost(blogpost);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult StatusClose([FromRoute] int id, [Bind("Id, BlogPostId, Title, Content, ImageToUpload")] EditInvestigationViewModel updatedInvestigation)
+        {
+            var actualInvestigation = _investigationRepository.GetInvestigationById(id);
+            int buffer = actualInvestigation.BlogPostId;
+            var blogpost = _bloggyRepository.GetBlogPostById(buffer);
+            blogpost.Status = "Closed";
+            _bloggyRepository.UpdateBlogPost(blogpost);
+            return RedirectToAction("Index");
 
         }
 
@@ -443,5 +477,6 @@ namespace Bloggy.Contollers
                 return View("Error");
             }
         }
+
     }
 }

@@ -68,7 +68,7 @@ namespace Bloggy.Models.Repositories
                     CreatedDate = DateTime.UtcNow.AddDays(-1),
                     ImageUrl = "/images/seed2.jpg",
                     CategoryId = 2,
-                    Status = "Open",
+                    Status = "Being Investigated",
                     UpVotes = 0,
                     Location = "Laboratory"
                 },
@@ -80,7 +80,7 @@ namespace Bloggy.Models.Repositories
                     CreatedDate = DateTime.UtcNow.AddDays(-2),
                     ImageUrl = "/images/seed3.jpg",
                     CategoryId = 2,
-                    Status = "Open",
+                    Status = "Being Investigated",
                     UpVotes = 0,
                     Location = "Room 122"
                 }

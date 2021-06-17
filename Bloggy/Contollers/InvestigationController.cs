@@ -105,13 +105,13 @@ namespace Bloggy.Contollers
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             try
             {
-                var model = new EditInvestigationViewModel();
-                //Pass model to View
-                return View(model);
+                    var model = new EditInvestigationViewModel();
+                    //Pass model to View
+                    return View(model);
             }
             catch (Exception ex)
             {
@@ -128,6 +128,7 @@ namespace Bloggy.Contollers
             {
                 if (ModelState.IsValid)
                 {
+                    /*
                     string fileName = "";
                     if (newInvestigation.ImageToUpload != null)
                     {
@@ -141,19 +142,22 @@ namespace Bloggy.Contollers
                             newInvestigation.ImageToUpload.CopyTo(bits);
                         }
                     }
+                    */
+                    var existingBlogPost = _bloggyRepository.GetBlogPostById(id);
 
                     Investigation investigation = new Investigation()
                     {
-                        Title = newInvestigation.Title,
+                        BlogPostId = id,
+                        Title = existingBlogPost.Title,
                         Content = newInvestigation.Content,
                         CreatedDate = DateTime.UtcNow,
-                        ImageUrl = "/images/investigations/" + fileName,
+                        ImageUrl = existingBlogPost.ImageUrl,
                         UserId = _userManager.GetUserId(User)
                     };
 
                     _investigationRepository.CreateInvestigation(investigation);
-                    var existingBlogPost = _bloggyRepository.GetBlogPostById(id);
                     existingBlogPost.Status = "Being Investigated";
+                    _bloggyRepository.UpdateBlogPost(existingBlogPost);
                     return RedirectToAction("Index");
                 }
                 else
@@ -175,7 +179,7 @@ namespace Bloggy.Contollers
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var existingInvestigation = _investigationRepository.GetInvestigationById(id);
             if (existingInvestigation != null)
@@ -183,6 +187,7 @@ namespace Bloggy.Contollers
                 EditInvestigationViewModel model = new EditInvestigationViewModel()
                 {
                     Id = existingInvestigation.Id,
+                    BlogPostId = existingInvestigation.BlogPostId,
                     Title = existingInvestigation.Title,
                     Content = existingInvestigation.Content,
                     ImageUrl = existingInvestigation.ImageUrl,
@@ -197,13 +202,17 @@ namespace Bloggy.Contollers
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Administrator")]
 
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             var modelToDelete = _investigationRepository.GetInvestigationById(id);
             if (modelToDelete == null)
             {
                 return NotFound();
             }
+            int ID = modelToDelete.BlogPostId;
+            var investigatedBlogPost = _bloggyRepository.GetBlogPostById(ID);
+            investigatedBlogPost.Status = "Open";
+            _bloggyRepository.UpdateBlogPost(investigatedBlogPost);
             _investigationRepository.DeleteInvestigation(modelToDelete);
             return RedirectToAction("Index");
         }

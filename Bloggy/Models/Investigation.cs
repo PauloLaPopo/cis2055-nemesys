@@ -8,6 +8,7 @@ namespace Bloggy.Models
     public class Investigation
     {
         public int Id { get; set; }
+        public int BlogPostId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string Title { get; set; }

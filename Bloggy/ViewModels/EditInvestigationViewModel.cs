@@ -10,9 +10,7 @@ namespace Bloggy.ViewModels
     public class EditInvestigationViewModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "A title is required")]
-        [StringLength(50)]
-        [Display(Name = "Investigation heading")]
+        public int BlogPostId { get; set; }
         public string Title { get; set; }
         [Required(ErrorMessage = "Investigation content is required")]
         [StringLength(1500, ErrorMessage = "Investigation cannot be longer than 1500 characters")]

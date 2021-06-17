@@ -35,6 +35,9 @@
             <input type="submit" class="btn btn-primary" value="Update Investigation" />
             <a asp-controller="Investigation" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Back to Investigation</a>
             <a asp-controller="Investigation" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Delete</a>
+            <a asp-controller="BlogPost" asp-action="StatusBeingInvest" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Being Investigated</a>
+            <a asp-controller="BlogPost" asp-action="StatusNoAction" asp-route-id="@Model.Id" class="btn btn-outline-secondary">No Action Required</a>
+            <a asp-controller="BlogPost" asp-action="StatusClose" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Close</a>
         </div>
     </div>
 </form>

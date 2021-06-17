@@ -29,6 +29,7 @@ namespace Bloggy.Models.Repositories
                 new Investigation()
                 {
                     Id = 1,
+                    BlogPostId = 0,
                     Title = "Investigation 1",
                     Content = "Today's AGA is characterized by a series of discussions and debates around ...",
                     CreatedDate = DateTime.UtcNow,
@@ -39,24 +40,12 @@ namespace Bloggy.Models.Repositories
                 new Investigation()
                 {
                     Id = 2,
+                    BlogPostId = 0,
                     Title = "Investigation 2",
                     Content = "Today's traffic can't be described using words. Only an image can do that ...",
                     CreatedDate = DateTime.UtcNow.AddDays(-1),
                     ImageUrl = "/images/seed2.jpg",
                 },
-                /*
-                new BlogPost()
-                {
-                    Id = 3,
-                    Title = "Pute",
-                    Content = "Clouds clouds all around us. I thought spring started already, but ...",
-                    CreatedDate = DateTime.UtcNow.AddDays(-2),
-                    ImageUrl = "/images/seed3.jpg",
-                    CategoryId = 2,
-                    Status = "Open",
-                    UpVotes = 0,
-                    Location = "Room 122"
-                }*/
             };
         }
 
@@ -102,6 +91,11 @@ namespace Bloggy.Models.Repositories
                 existingInvestigation.UpdatedDate = investigation.UpdatedDate;
                 existingInvestigation.UserId = investigation.UserId;
             }
+        }
+
+        public void CreateInvestigation(object investigation)
+        {
+            throw new NotImplementedException();
         }
     }
 }
