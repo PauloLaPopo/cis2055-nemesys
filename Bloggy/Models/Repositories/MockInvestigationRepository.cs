@@ -31,9 +31,9 @@ namespace Bloggy.Models.Repositories
                     Id = 1,
                     BlogPostId = 0,
                     Title = "Investigation 1",
-                    Content = "Today's AGA is characterized by a series of discussions and debates around ...",
+                    Content = "The bulb was too old, the administration called the electrician to change the bulb and fix the problem",
                     CreatedDate = DateTime.UtcNow,
-                    ImageUrl = "/images/seed1.jpg",
+                    ImageUrl = "/images/test1.jpg",
 
 
                 },
@@ -42,9 +42,9 @@ namespace Bloggy.Models.Repositories
                     Id = 2,
                     BlogPostId = 0,
                     Title = "Investigation 2",
-                    Content = "Today's traffic can't be described using words. Only an image can do that ...",
+                    Content = "We are currently analysing the different products used in this experiment. We do not yet know what the problem is",
                     CreatedDate = DateTime.UtcNow.AddDays(-1),
-                    ImageUrl = "/images/seed2.jpg",
+                    ImageUrl = "/images/test2.jpg",
                 },
             };
         }

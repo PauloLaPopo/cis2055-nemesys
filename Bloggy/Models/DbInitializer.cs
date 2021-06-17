@@ -156,7 +156,7 @@ namespace Bloggy.Models
                         Content = "The bulb was too old, the administration called the electrician to change the bulb and fix the problem",
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow,
-                        ImageUrl = "/images/seed1.jpg",
+                        ImageUrl = "/images/test1.jpg",
                         UserId = user.Id,
                     },
                     new Investigation()
@@ -165,7 +165,7 @@ namespace Bloggy.Models
                         Content = "We are currently analysing the different products used in this experiment. We do not yet know what the problem is",
                         CreatedDate = DateTime.UtcNow.AddDays(-1),
                         UpdatedDate = DateTime.UtcNow.AddDays(-1),
-                        ImageUrl = "/images/seed2.jpg",
+                        ImageUrl = "/images/test2.jpg",
                         UserId = user.Id,
 
                     }
