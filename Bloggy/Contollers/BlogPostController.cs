@@ -113,7 +113,10 @@ namespace Bloggy.Contollers
                         }
                     };
 
-                    return View(model);
+                    _bloggyRepository.UpdateBlogPostReadCount(post);
+                    
+
+                return View(model);
                 }
             }
             catch (Exception ex)
