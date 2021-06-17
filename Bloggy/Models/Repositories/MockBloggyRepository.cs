@@ -32,12 +32,12 @@ namespace Bloggy.Models.Repositories
                 new Category()
                 {
                     Id = 1,
-                    Name = "Chimic Danger"
+                    Name = "Condition"
                 },
                 new Category()
                 {
                     Id = 2,
-                    Name = "Technical Danger"
+                    Name = "Equipment or Structure"
                 }
             };
         }
@@ -50,23 +50,23 @@ namespace Bloggy.Models.Repositories
                 new BlogPost()
                 {
                     Id = 1,
-                    Title = "Test",
-                    Content = "Today's AGA is characterized by a series of discussions and debates around ...",
+                    Title = "Toilet light",
+                    Content = "the light bulb in the toilet exploded. Many pieces of glass were found on the ground",
                     CreatedDate = DateTime.UtcNow,
-                    ImageUrl = "/images/seed1.jpg",
+                    ImageUrl = "/images/test1.jpg",
                     CategoryId = 1,
                     Status = "Open",
                     UpVotes = 0,
                     Location = "Toilet",
-                    
+
                 },
                 new BlogPost()
                 {
                     Id = 2,
-                    Title = "Traffic is incredible",
-                    Content = "Today's traffic can't be described using words. Only an image can do that ...",
+                    Title = "Chimic reaction problem",
+                    Content = "Chemical reaction in a laboratory following an experiment during a UoM course. No injuries but material damage was reported",
                     CreatedDate = DateTime.UtcNow.AddDays(-1),
-                    ImageUrl = "/images/seed2.jpg",
+                    ImageUrl = "/images/test2.jpg",
                     CategoryId = 2,
                     Status = "Being Investigated",
                     UpVotes = 0,
@@ -75,10 +75,10 @@ namespace Bloggy.Models.Repositories
                 new BlogPost()
                 {
                     Id = 3,
-                    Title = "Pute",
-                    Content = "Clouds clouds all around us. I thought spring started already, but ...",
+                    Title = "Door of the 122 room",
+                    Content = "The door to room 122 was found with the handle broken off. This happened during the night no clue as to how this problem arose.",
                     CreatedDate = DateTime.UtcNow.AddDays(-2),
-                    ImageUrl = "/images/seed3.jpg",
+                    ImageUrl = "/images/test3.jpg",
                     CategoryId = 2,
                     Status = "Being Investigated",
                     UpVotes = 0,

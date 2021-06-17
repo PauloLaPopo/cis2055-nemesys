@@ -23,13 +23,13 @@ namespace Bloggy.Models
             {
                 var user = new ApplicationUser()
                 {
-                    Email = "testuser@testmail.com",
-                    NormalizedEmail = "TESTUSER@TESTMAIL.COM",
-                    UserName = "testuser@testmail.com",
-                    NormalizedUserName = "TESTUSER@TESTMAIL.COM",
+                    Email = "chrisporter@testmail.com",
+                    NormalizedEmail = "CHRISPORTER@TESTMAIL.COM",
+                    UserName = "chrisporter@testmail.com",
+                    NormalizedUserName = "CHRISPORTER@TESTMAIL.COM",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
-                    AuthorAlias = "testuser",
+                    AuthorAlias = "chrisporter",
                     SecurityStamp = Guid.NewGuid().ToString("D") //to track important profile updates (e.g. password change)
                 };
 
@@ -41,16 +41,15 @@ namespace Bloggy.Models
                     userManager.AddToRoleAsync(user, "User").Wait();
                 }
 
-
                 var admin = new ApplicationUser()
                 {
-                    Email = "testadmin@testmail.com",
-                    NormalizedEmail = "TESTADMIN@TESTMAIL.COM",
-                    UserName = "testadmin@testmail.com",
-                    NormalizedUserName = "TESTADMIN@TESTMAIL.COM",
+                    Email = "paularquiergedda@testmail.com",
+                    NormalizedEmail = "PAULARQUIERGEDDA@TESTMAIL.COM",
+                    UserName = "paularquiergedda@testmail.com",
+                    NormalizedUserName = "PAULARQUIERGEDDA@TESTMAIL.COM",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
-                    AuthorAlias = "testadmin",
+                    AuthorAlias = "paularquiergedda",
                     SecurityStamp = Guid.NewGuid().ToString("D") //to track important profile updates (e.g. password change)
                 };
 
@@ -61,6 +60,7 @@ namespace Bloggy.Models
                     //Add to role
                     userManager.AddToRoleAsync(admin, "Administrator").Wait();
                 }
+                
             }
         }
 
@@ -72,15 +72,15 @@ namespace Bloggy.Models
                 (
                     new Category()
                     {
-                        Name = "Uncategorised"
+                        Name = "Unsafe Act"
                     },
                     new Category ()
                     {
-                        Name = "Chimic Danger"
+                        Name = "Condition"
                     },
                     new Category()
                     {
-                        Name = "Technical Danger"
+                        Name = "Equipment or Structure"
                     }
                 );
                 context.SaveChanges();
@@ -95,12 +95,12 @@ namespace Bloggy.Models
                 (
                     new BlogPost()
                     {
-                        Title = "Post 3",
-                        Content = "Today's AGA is characterized by a series of discussions and debates around ...",
+                        Title = "Toilet light",
+                        Content = "the light bulb in the toilet exploded. Many pieces of glass were found on the ground",
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow,
                         DiscoveryDate = DateTime.UtcNow.AddMinutes(-600),
-                        ImageUrl = "/images/seed1.jpg",
+                        ImageUrl = "/images/test1.jpg",
                         UpVotes = 0,
                         CategoryId = 1,
                         Status = "Open",
@@ -111,12 +111,12 @@ namespace Bloggy.Models
                     },
                     new BlogPost()
                     {
-                        Title = "Traffic is incredible",
-                        Content = "Today's traffic can't be described using words. Only an image can do that ...",
+                        Title = "Chimic reaction problem",
+                        Content = "Chemical reaction in a laboratory following an experiment during a UoM course. No injuries but material damage was reported",
                         CreatedDate = DateTime.UtcNow.AddDays(-1),
                         UpdatedDate = DateTime.UtcNow.AddDays(-1),
                         DiscoveryDate = DateTime.UtcNow.AddDays(-1).AddMinutes(-300),
-                        ImageUrl = "/images/seed2.jpg",
+                        ImageUrl = "/images/test2.jpg",
                         CategoryId = 2,
                         UpVotes = 0,
                         Status = "Open",
@@ -126,12 +126,12 @@ namespace Bloggy.Models
                     },
                     new BlogPost()
                     {
-                        Title = "Post 1",
-                        Content = "Clouds clouds all around us. I thought spring started already, but ...",
+                        Title = "Door of the 122 room",
+                        Content = "The door to room 122 was found with the handle broken off. This happened during the night no clue as to how this problem arose.",
                         CreatedDate = DateTime.UtcNow.AddDays(-2),
                         UpdatedDate = DateTime.UtcNow.AddDays(-2),
                         DiscoveryDate = DateTime.UtcNow.AddDays(-2).AddMinutes(-1000),
-                        ImageUrl = "/images/seed3.jpg",
+                        ImageUrl = "/images/test3.jpg",
                         CategoryId = 2,
                         UpVotes = 0,
                         Status = "Open",
@@ -153,7 +153,7 @@ namespace Bloggy.Models
                     new Investigation()
                     {
                         Title = "Investigation 1",
-                        Content = "Today's AGA is characterized by a series of discussions and debates around ...",
+                        Content = "The bulb was too old, the administration called the electrician to change the bulb and fix the problem",
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow,
                         ImageUrl = "/images/seed1.jpg",
@@ -162,7 +162,7 @@ namespace Bloggy.Models
                     new Investigation()
                     {
                         Title = "Investigation 2",
-                        Content = "Today's traffic can't be described using words. Only an image can do that ...",
+                        Content = "We are currently analysing the different products used in this experiment. We do not yet know what the problem is",
                         CreatedDate = DateTime.UtcNow.AddDays(-1),
                         UpdatedDate = DateTime.UtcNow.AddDays(-1),
                         ImageUrl = "/images/seed2.jpg",
