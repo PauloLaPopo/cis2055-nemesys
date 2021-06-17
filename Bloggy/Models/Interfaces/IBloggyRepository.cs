@@ -11,6 +11,7 @@ namespace Bloggy.Models.Interfaces
         BlogPost GetBlogPostById(int blogPostId);
         void CreateBlogPost(BlogPost newBlogPost);
 
+        public void UpdateBlogPostReadCount(BlogPost blogPost);
         void DeleteBlogPost(BlogPost blogPost);
 
         void UpdateBlogPost(BlogPost updatedBlogPost);
